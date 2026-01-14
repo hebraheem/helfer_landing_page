@@ -127,31 +127,18 @@ function setLanguage(lang) {
   prevLang = lang;
 }
 
-// Default loading
-setLanguage(currentLang || "en");
+// Expose globally if using inline onclick (optional)
+window.setLanguage = setLanguage;
 
-function setTabLanguage(lang) {
-  document.title = tabMeta[lang].title;
+// Event listeners for buttons
+document.addEventListener("DOMContentLoaded", () => {
   document
-    .querySelector('meta[name="description"]')
-    .setAttribute("content", tabMeta[lang].description);
-}
-setTabLanguage(currentLang ?? "en");
+    .getElementById("lang-en")
+    .addEventListener("click", () => setLanguage("en"));
+  document
+    .getElementById("lang-de")
+    .addEventListener("click", () => setLanguage("de"));
 
-// Tooltip for SVG map
-const tooltip = document.getElementById("tooltip");
-document.querySelectorAll("circle").forEach((circle) => {
-  circle.addEventListener("mouseenter", (e) => {
-    tooltip.innerText = e.target.getAttribute("data-name");
-    tooltip.style.left = e.pageX + 10 + "px";
-    tooltip.style.top = e.pageY - 30 + "px";
-    tooltip.classList.remove("hidden");
-  });
-  circle.addEventListener("mousemove", (e) => {
-    tooltip.style.left = e.pageX + 10 + "px";
-    tooltip.style.top = e.pageY - 30 + "px";
-  });
-  circle.addEventListener("mouseleave", () => {
-    tooltip.classList.add("hidden");
-  });
+  // Default to English
+  setLanguage(currentLang ?? "en");
 });
