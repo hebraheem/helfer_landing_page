@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>HelferIn – Local Help in Bavaria</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .active {
+            color: gold;
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        .delay-400 {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-fadeInLeft {
+            animation: fadeInLeft 1s ease-out forwards;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-fadeInRight {
+            animation: fadeInRight 1s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-zoomIn {
+            animation: zoomIn 1s ease-out forwards;
+        }
+
+        /* Tooltip */
+        #tooltip {
+            background-color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-b from-blue-50 to-indigo-100 text-gray-900">
+
+    <!-- Language Switch -->
+    <nav class="flex justify-end p-4 space-x-4 bg-indigo-800 text-white">
+        <button onclick="setLanguage('en')" id="lang-en"
+            class="font-semibold hover:text-yellow-400 transition">EN</button>
+        <button onclick="setLanguage('de')" id="lang-de"
+            class="font-semibold hover:text-yellow-400 transition">DE</button>
+    </nav>
+
+    <!-- Hero -->
+    <header class="bg-indigo-700 text-white">
+        <div class="max-w-6xl mx-auto p-8 md:flex items-center">
+            <div class="md:w-1/2 space-y-4">
+                <h1 class="text-4xl md:text-5xl font-bold animate-fadeIn" id="hero-title"></h1>
+                <p class="text-lg md:text-xl animate-fadeIn delay-200" id="hero-subtitle"></p>
+                <a href="#signup"
+                    class="inline-block bg-yellow-400 text-indigo-900 font-bold px-6 py-3 rounded-lg shadow-lg hover:bg-yellow-300 transform hover:scale-105 transition animate-fadeIn delay-400"
+                    id="hero-cta"></a>
+            </div>
+            <div class="md:w-1/2 mt-8 md:mt-0 animate-fadeIn delay-300">
+                <img src="https://t4.ftcdn.net/jpg/03/00/95/61/360_F_300956127_76KFHJsyyX3nxlrE7GHnpf0kXvzw6jz3.jpg"
+                    alt="Community Helping" class="rounded-xl shadow-xl w-full object-cover">
+            </div>
+        </div>
+    </header>
+
+    <!-- Features -->
+    <section class="py-16 max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8" id="features-title"></h2>
+        <div class="grid gap-8 md:grid-cols-3" id="features-container"></div>
+    </section>
+
+    <!-- Problem / Solution -->
+    <section class="bg-indigo-50 py-16">
+        <div class="max-w-6xl mx-auto px-4 md:flex md:items-center md:gap-12">
+            <div class="md:w-1/2 mb-8 md:mb-0 animate-fadeInLeft">
+                <img src="https://img.freepik.com/free-photo/man-wheelchair-work-front-view_23-2149759012.jpg?semt=ais_hybrid&w=740&q=80"
+                    alt="Group volunteering" class="rounded-xl shadow-lg w-full object-cover">
+            </div>
+            <div class="md:w-1/2 space-y-4 animate-fadeInRight">
+                <h2 class="text-3xl font-bold" id="problem-title"></h2>
+                <p id="problem-text"></p>
+                <h2 class="text-3xl font-bold pt-4" id="solution-title"></h2>
+                <p id="solution-text"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Moments -->
+    <section class="py-16 max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8" id="gallery-title"></h2>
+        <p class="text-center text-gray-700 mb-8" id="gallery-text"></p>
+        <div class="grid gap-6 md:grid-cols-3">
+            <img src="https://as1.ftcdn.net/v2/jpg/17/26/44/84/1000_F_1726448456_kdCmEuQHN67m27bG3JrYh16y8PvH5ek4.jpg?fit=crop&w=400&q=80"
+                alt="Helpers working together" class="rounded-xl shadow-lg hover:scale-105 transition">
+            <img src="https://as2.ftcdn.net/v2/jpg/17/85/78/65/1000_F_1785786571_2qmiPv4TCd4ZybKLtopRx53YX9agDnD0.jpg?fit=crop&w=400&q=80"
+                alt="Helping hands" class="rounded-xl shadow-lg hover:scale-105 transition">
+            <img src="https://as2.ftcdn.net/v2/jpg/16/48/51/11/1000_F_1648511186_HIPvYahmQAXUWud4sdvkZwrQvb70Vtwt.jpg?fit=crop&w=400&q=80"
+                alt="Community support" class="rounded-xl shadow-lg hover:scale-105 transition">
+        </div>
+    </section>
+
+    <!-- Find Helpers Nearby -->
+    <section class="py-16 max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8" id="map-title"></h2>
+        <p class="text-center text-gray-700 mb-8" id="map-text"></p>
+        <div class="relative w-full h-96 bg-indigo-50 rounded-xl shadow-lg flex justify-center items-center">
+            <!-- SVG Map -->
+            <svg class="w-full h-full" viewBox="0 0 800 600">
+                <path
+                    d="M50,500 L150,450 L200,500 L250,450 L300,500 L400,400 L500,450 L550,400 L600,450 L650,400 L700,450 L750,400 L700,300 L650,250 L600,200 L550,150 L500,200 L450,150 L400,200 L350,150 L300,200 L250,150 L200,200 L150,150 L100,200 Z"
+                    fill="#C7D2FE" stroke="#4F46E5" stroke-width="3"></path>
+
+                <!-- Mock Helpers -->
+                <circle cx="200" cy="500" r="12" fill="#FBBF24" class="cursor-pointer hover:scale-125 transition"
+                    data-name="Munich Helper 1" />
+                <circle cx="400" cy="400" r="12" fill="#FBBF24" class="cursor-pointer hover:scale-125 transition"
+                    data-name="Nuremberg Helper 2" />
+                <circle cx="600" cy="450" r="12" fill="#FBBF24" class="cursor-pointer hover:scale-125 transition"
+                    data-name="Augsburg Helper 3" />
+                <circle cx="350" cy="200" r="12" fill="#FBBF24" class="cursor-pointer hover:scale-125 transition"
+                    data-name="Regensburg Helper 4" />
+            </svg>
+
+            <div id="tooltip" class="absolute hidden"></div>
+        </div>
+    </section>
+
+    <!-- Sign Up CTA -->
+    <section id="signup" class="bg-indigo-700 text-white py-16 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 animate-fadeInUp" id="cta-title"></h2>
+        <p class="mb-6 animate-fadeInUp delay-200" id="cta-text"></p>
+        <a href="#"
+            class="bg-yellow-400 text-indigo-900 font-bold px-8 py-3 rounded-lg hover:bg-yellow-300 transform hover:scale-105 transition animate-fadeInUp delay-400"
+            id="cta-button"></a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-indigo-800 text-white py-8 text-center">
+        <p>&copy; 2026 HelferIn • Connecting Bavaria. All rights reserved.</p>
+        <p>Languages: English & German</p>
+    </footer>
+
+    <!-- JS i18n + Map Tooltip -->
+    <script>
+        let prevLang
+        const translations = {
+            en: {
+                heroTitle: "HelferIn",
+                heroSubtitle: "Connect with local helpers for translation, errands, admin support & more in Bavaria.",
+                heroCTA: "Get Started",
+                featuresTitle: "Features",
+                features: [{
+                        title: "Easy Requests",
+                        text: "Post help requests quickly for tasks like translation, errands or admin help."
+                    },
+                    {
+                        title: "Trusted Helpers",
+                        text: "See ratings & profiles to pick helpers you can trust."
+                    },
+                    {
+                        title: "Chat & Map",
+                        text: "Chat in-app and find helpers with interactive maps."
+                    }
+                ],
+                problemTitle: "The Problem",
+                problemText: "Many in Bavaria face language barriers, complex bureaucracy, or need help with daily tasks.",
+                solutionTitle: "Our Solution",
+                solutionText: "HelferIn connects you with helpers nearby for quick, trusted support, with English & German language support.",
+                galleryTitle: "Community Moments",
+                galleryText: "See our helpers in action—making a difference in local communities every day.",
+                mapTitle: "Find Helpers Nearby",
+                mapText: "Hover over a helper marker to see their name and availability.",
+                ctaTitle: "Ready to Get Help or Help Others?",
+                ctaText: "Join HelferIn — available in English & German.",
+                ctaButton: "Sign Up Now"
+            },
+            de: {
+                heroTitle: "HelferIn",
+                heroSubtitle: "Finden Sie lokale Helfer für Übersetzungen, Besorgungen, Büroarbeit & mehr in Bayern.",
+                heroCTA: "Loslegen",
+                featuresTitle: "Funktionen",
+                features: [{
+                        title: "Einfache Anfragen",
+                        text: "Erstellen Sie schnell Hilfsanfragen für Übersetzungen, Besorgungen oder Büroarbeit."
+                    },
+                    {
+                        title: "Vertrauenswürdige Helfer",
+                        text: "Sehen Sie Bewertungen und Profile, um zuverlässige Helfer auszuwählen."
+                    },
+                    {
+                        title: "Chat & Karte",
+                        text: "Chatten Sie in der App und finden Sie Helfer auf interaktiven Karten."
+                    }
+                ],
+                problemTitle: "Das Problem",
+                problemText: "Viele Menschen in Bayern haben Sprachbarrieren, komplexe Bürokratie oder benötigen Hilfe im Alltag.",
+                solutionTitle: "Unsere Lösung",
+                solutionText: "HelferIn verbindet Sie mit Helfern in Ihrer Nähe für schnelle, vertrauenswürdige Unterstützung, mit Englisch & Deutsch.",
+                galleryTitle: "Gemeinschaftsmomente",
+                galleryText: "Sehen Sie unsere Helfer im Einsatz – die jeden Tag einen Unterschied in lokalen Gemeinden machen.",
+                mapTitle: "Finde Helfer in der Nähe",
+                mapText: "Bewegen Sie die Maus über einen Helfer-Marker, um Name und Verfügbarkeit zu sehen.",
+                ctaTitle: "Bereit, Hilfe zu erhalten oder zu geben?",
+                ctaText: "Treten Sie HelferIn bei — verfügbar in Englisch & Deutsch.",
+                ctaButton: "Jetzt anmelden"
+            }
+        };
+
+        function setLanguage(lang) {
+            const t = translations[lang];
+            const prevActive = document.getElementById(`lang-${prevLang}`)
+            if (prevActive && prevActive.classList.contains("active")) {
+                prevActive.classList.remove('active')
+            }
+            document.getElementById("hero-title").innerText = t.heroTitle;
+            document.getElementById("hero-subtitle").innerText = t.heroSubtitle;
+            document.getElementById("hero-cta").innerText = t.heroCTA;
+            document.getElementById("features-title").innerText = t.featuresTitle;
+            const container = document.getElementById("features-container");
+            container.innerHTML = '';
+            t.features.forEach(f => {
+                const card = document.createElement('div');
+                card.className =
+                    "bg-white p-6 rounded-xl shadow transition hover:shadow-2xl hover:-translate-y-2 animate-zoomIn";
+                card.innerHTML = `<h3 class="font-bold text-xl mb-2">${f.title}</h3><p>${f.text}</p>`;
+                container.appendChild(card);
+            });
+            document.getElementById("problem-title").innerText = t.problemTitle;
+            document.getElementById("problem-text").innerText = t.problemText;
+            document.getElementById("solution-title").innerText = t.solutionTitle;
+            document.getElementById("solution-text").innerText = t.solutionText;
+            document.getElementById("gallery-title").innerText = t.galleryTitle;
+            document.getElementById("gallery-text").innerText = t.galleryText;
+            document.getElementById("map-title").innerText = t.mapTitle;
+            document.getElementById("map-text").innerText = t.mapText;
+            document.getElementById("cta-title").innerText = t.ctaTitle;
+            document.getElementById("cta-text").innerText = t.ctaText;
+            document.getElementById("cta-button").innerText = t.ctaButton;
+
+            const active = document.getElementById(`lang-${lang}`)
+            if (active) {
+                active.classList.add("active")
+            }
+            prevLang = lang
+        }
+
+        // Tooltip for SVG map
+        const tooltip = document.getElementById('tooltip');
+        document.querySelectorAll('circle').forEach(circle => {
+            circle.addEventListener('mouseenter', (e) => {
+                tooltip.innerText = e.target.getAttribute('data-name');
+                tooltip.style.left = e.pageX + 10 + 'px';
+                tooltip.style.top = e.pageY - 30 + 'px';
+                tooltip.classList.remove('hidden');
+            });
+            circle.addEventListener('mousemove', (e) => {
+                tooltip.style.left = e.pageX + 10 + 'px';
+                tooltip.style.top = e.pageY - 30 + 'px';
+            });
+            circle.addEventListener('mouseleave', () => {
+                tooltip.classList.add('hidden');
+            });
+        });
+
+        // Default language
+        setLanguage('en');
+    </script>
+</body>
+
+</html>
